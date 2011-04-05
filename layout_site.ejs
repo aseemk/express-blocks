@@ -1,0 +1,22 @@
+<!doctype html>
+<head>
+    <meta charset=utf-8>
+    <title>Nested Layouts with Blocks Demo</title>
+    <!-- pull in the 'head' block content defined by our child layouts/pages -->
+    <%- block('head') %>
+</head>
+<body>    
+    <h1>Site Layout</h1>
+    <p>
+        This is the master site layout. 
+        It is not wrapped by a layout.
+        It includes the following dynamic blocks:
+    </p>
+    <ul><li><t>head</t>: a block whose content is rendered in the HTML 'head' section</li>
+        <li><t>foot</t>: a block whose content is rendered just before the closing 'body' tag</li>
+    </ul>
+
+    <!-- pull in the 'foot' block content defined by our child layouts/pages -->
+    <%- block('foot') %>
+</body>
+</html>

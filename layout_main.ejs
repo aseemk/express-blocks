@@ -1,0 +1,16 @@
+<!-- use blocks.js to inject content into *parent* layout -->
+<!-- use new layout() helper to select parent layout -->
+
+<% layout('layout_site') %>
+<% block('head', block.stylesheet('layout.css')) %>
+<% block('foot', block.script('layout.js')) %>
+
+<h1>Main Layout</h1>
+<p>
+    This is the main page layout. 
+    It is wrapped by the <t>layout_site</t> layout.
+    It adds the following blocks to the layout:
+</p>
+<ul><li>A layout.css stylesheet in the document head</li>
+    <li>A layout.js script at the document foot</li>
+</ul>

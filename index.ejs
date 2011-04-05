@@ -1,0 +1,16 @@
+<!-- use blocks.js to inject content into layout -->
+<!-- use new layout() helper to get nested layouts -->
+
+<% layout('layout_main') %>
+<% block('head', block.stylesheet('page.css')) %>
+<% block('foot', block.script('page.js')) %>
+
+<h2>Index Page</h2>
+<p>
+    This is the main page content. 
+    It is wrapped by the <t>layout_main</t> layout.
+    It adds the following blocks to the layout:
+</p>
+<ul><li>A page.css stylesheet in the document head</li>
+    <li>A page.js script at the document foot</li>
+</ul>
