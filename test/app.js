@@ -2,11 +2,11 @@ var express = require('express');
 var app = express.createServer();
 
 app.configure(function () {
-    app.use(require('./blocks'));
+    app.use(require('..')(app));
     app.use(app.router);
 });
 
-app.set('views', __dirname + '/views');
+app.set('views', __dirname);
 app.set('view engine', 'html');
 app.register('.html', require('ejs'));
 

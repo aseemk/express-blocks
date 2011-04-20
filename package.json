@@ -1,0 +1,20 @@
+{
+  "name": "blocks",
+  "description": "Middleware for Express/Connect that adds basic block support to view template engines.",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git@gist.github.com:927172.git"
+  },
+  "author": "Laurie Harper <laurie@holoweb.net>",
+  "contributors": ["Aseem Kishore <aseem.kishore@gmail.com>"],
+  "main": "./blocks.js",
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "express": "2.2.x",
+    "ejs": "0.3.x"
+  }
+}
