@@ -1,6 +1,6 @@
 {
-  "name": "blocks",
-  "description": "Middleware for Express/Connect that adds basic block support to view template engines.",
+  "name": "express-blocks",
+  "description": "Middleware for Express that adds basic block support to views.",
   "version": "0.1.0",
   "repository": {
     "type": "git",
