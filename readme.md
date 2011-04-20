@@ -2,11 +2,10 @@ express-blocks
 ==============
 
 Middleware for [Express](http://expressjs.com/) that adds basic block support
-to views, in the form of a helper `block()` method.
+to views.
 
-This was authored by [Laurie Harper](https://github.com/laurie71) in the form
-of a proof-of-concept [gist](https://gist.github.com/903142). I've simply
-packaged it up as an official npm module.
+This was initially [prototyped](https://gist.github.com/903142) by
+[Laurie Harper](https://github.com/laurie71). Thanks Laurie!
 
 Installation
 ------------
@@ -23,25 +22,31 @@ Usage
 
 In your `app.js`, register this middleware:
 
-    app.use(require('express-blocks')(app));
+    app.use(require('express-blocks'));
 
-Then in your (top-level) layout, add the desired block placeholders (e.g. in
-[EJS](https://github.com/visionmedia/ejs) syntax):
+Then in your (top-level) layout, name and add placeholders for your desired
+`blocks` (e.g. in [EJS](https://github.com/visionmedia/ejs) syntax):
 
-    <%- block('head') %>
+    <%- blocks.foo %>
     ...
-    <%- block('foot') %>
+    <%- blocks.bar %>
 
 And from your views (or intermediate layouts), add arbitrary HTML to those
-blocks:
+blocks via the `block()` function:
 
-    <%- block('head', '<meta name="description" value="Hello world." />') %>
+    <%- block('foo', '<p>Hello world!</p>') %>
 
-You can use the helper `block.script` and `block.stylesheet` functions to
+You can use the helper `script()` and `stylesheet()` functions to generate
 generate staple `<script>` and `<link rel="stylesheet">` references for you:
 
-    <%- block('head', block.script('/path/to/script.js')) %>
-    <%- block('head', block.stylesheet('/path/to/stylesheet.js')) %>
+    <%- script('/path/to/script.js') %>
+    <%- stylesheet('/path/to/stylesheet.js') %>
+
+Which are exposed to (top-level) layouts as blocks named `scripts` and
+`stylesheets`, also aliased globally just like `body`:
+
+    <%- scripts %>
+    <%- stylesheets %>
 
 As Borat would say, niiice!
 
@@ -53,9 +58,10 @@ Run the included Express test app:
     node test/app.js
 
 Then open your browser to http://localhost:8080/, view source, and you should
-see two stylesheet references and two script references.
+see two stylesheet references and two script references. The content of the
+page should also show two "Hello from [layout/page] [main/test]!" paragraphs.
 
 License
 -------
 
-MIT. (c) 2011 Laurie Harper and Aseem Kishore.
+MIT License. Copyright &copy; 2011 Aseem Kishore and Laurie Harper.

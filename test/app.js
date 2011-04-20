@@ -2,7 +2,7 @@ var express = require('express');
 var app = express.createServer();
 
 app.configure(function () {
-    app.use(require('..')(app));
+    app.use(require('..'));
     app.use(app.router);
 });
 

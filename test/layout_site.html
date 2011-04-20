@@ -2,8 +2,8 @@
 <head>
     <meta charset=utf-8>
     <title>Nested Layouts with Blocks Demo</title>
-    <!-- pull in the 'head' block content defined by our child layouts/pages -->
-    <%- block('head') %>
+    <!-- pull in the stylesheets defined by our child layouts/pages -->
+    <%- stylesheets %>
 </head>
 <body>    
     <h1>Site Layout</h1>
@@ -12,13 +12,14 @@
         It is not wrapped by a layout.
         It includes the following dynamic blocks:
     </p>
-    <ul><li><t>head</t>: a block whose content is rendered in the HTML 'head' section</li>
-        <li><t>foot</t>: a block whose content is rendered just before the closing 'body' tag</li>
+    <ul><li><t>stylesheets</t>: link rel="stylesheet" references placed before the closing 'head' tag</li>
+        <li><t>foobar</t>: this stuff right here: <%- blocks.foobar %>
+        <li><t>scripts</t>: script references placed before the closing 'body' tag</li>
     </ul>
     
     <%- body %>
 
-    <!-- pull in the 'foot' block content defined by our child layouts/pages -->
-    <%- block('foot') %>
+    <!-- pull in the scripts defined by our child layouts/pages -->
+    <%- scripts %>
 </body>
 </html>

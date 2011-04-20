@@ -1,13 +1,15 @@
 {
   "name": "express-blocks",
-  "description": "Middleware for Express that adds basic block support to views.",
-  "version": "0.1.0",
+  "description": "Express middleware for blocks in views.",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
-    "url": "git@gist.github.com:927172.git"
+    "url": "git://github.com/aseemk/express-blocks.git"
   },
-  "author": "Laurie Harper <laurie@holoweb.net>",
-  "contributors": ["Aseem Kishore <aseem.kishore@gmail.com>"],
+  "author": "Aseem Kishore <aseem.kishore@gmail.com>",
+  "contributors": [
+    "Laurie Harper <laurie@holoweb.net>"
+  ],
   "main": "./blocks.js",
   "engines": {
     "node": "*"

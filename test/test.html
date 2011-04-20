@@ -2,8 +2,8 @@
 <!-- use new layout() helper to get nested layouts -->
 
 <% layout('layout_main') %>
-<% block('head', block.stylesheet('page.css')) %>
-<% block('foot', block.script('page.js')) %>
+<% stylesheet('page.css') %>
+<% script('page.js') %>
 
 <h2>Index Page</h2>
 <p>
@@ -14,3 +14,5 @@
 <ul><li>A page.css stylesheet in the document head</li>
     <li>A page.js script at the document foot</li>
 </ul>
+
+<% block('foobar', '<p>Hello from page <em>test</em>!</p>') %>

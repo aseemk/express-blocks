@@ -1,88 +1,78 @@
-var debug = require('util').debug;
+//
+// Block class - essentially an HTML buffer
+//
 
-// helper prototype for rendering block scripts, stylesheet links, etc
-var blocktag = {
-    toString: function() {
-        var tag = this.tag,
-            html = '<'+tag,
-            that = this;
-        
-        Object.getOwnPropertyNames(this).forEach(function(prop) {
-            if (prop !== 'tag') {
-                html += ' '+prop+'="'+that[prop]+'"';
-            }
-        });
-        
-        if (tag === 'script') {
-            html += '></script>';
-        } else {
-            html += ' />';
-        }
-        
-        return html;
-    }
+function Block(name) {
+    this.name = name;
+    this.htmls = [];
 }
 
-module.exports = function(app) {
-    return function(req, res, next) {
-        // request-local hash of named blocks
-        var blocks = {};
+Block.prototype.addHtml = function (html) {
+    this.htmls.push(html);
+};
 
-        // dynamic helper for defining/rendering blocks
-        function block(name) {
-            var block, html;
+Block.prototype.toHtml = function () {
+    // important: output HTML in reverse order; child pages/layouts are
+    // executed first, but parent pages/layouts may have dependencies.
+    this.htmls.reverse();
+    var html = this.htmls.join('');
+    this.htmls.reverse();
+    return html;
+};
 
-            if (arguments.length === 0) return next(new Error('unnamed block'));
-            block = blocks[name];
+// important: so that the block can be output in the view directly w/out
+// having to explicitly call .toHtml() on it.
+Block.prototype.toString = Block.prototype.toHtml;
 
-            if (arguments.length === 1) {
-                // render block contents
-                html = '';
-                if (block) {
-                    block.forEach(function(item) {
-                        html = String(item) + html;
-                    });
-                }
-                debug('block: '+name+': '+JSON.stringify(block));
-                debug('html: '+html);
-                return html;
+
+//
+// Middleware - adds view helpers to every request
+//
+
+module.exports = function(req, res, next) {
+    // request-local hash of named blocks
+    var blocks = {};
+    
+    // create the named block if it doesn't already exist
+    function getBlock(name) {
+        return blocks[name] = blocks[name] || new Block(name);
+    }
+    
+    req.app.helpers({
+        
+        // block(name, html) adds the given HTML to the named block;
+        // block(name) returns the combined HTML for the named block
+        block: function block(name, html) {
+            var block = getBlock(name);
+            if (html) {
+                block.addHtml(html);
             } else {
-                // define/append block contents
-                if (! block) block = blocks[name] = [];
-                block.push(Array.prototype.slice.call(arguments, 1));
-                debug('block: '+name+': '+JSON.stringify(block));
-                return '';
+                return block.toHtml();
             }
-        };
+        },
         
-        // utility method for adding a script to a block
-        block.script = function(src) {
-            return Object.create(blocktag, {
-                src : { enumerable: true, value: src },
-                tag : { enumerable: true, value: 'script' },
-                type: { enumerable: true, value:  'text/javascript' }
-            });
-        };
+        blocks: blocks,
         
-        // utility method for adding a stylesheet to a block
-        block.stylesheet = function(href, media) {
-            var tag = Object.create(blocktag, {
-                href: { enumerable: true, value: href },
-                tag : { enumerable: true, value: 'link' },
-                type: { enumerable: true, value: 'text/css' },
-                rel : { enumerable: true, value: 'stylesheet' }
-            });
-            if (media) {
-                tag.media = media;
-            }
-            return tag;
-        };
-
-        debug('add helpers');
-        // res.local('block', block);
-        // req.app.dynamicHelpers(block);
-        // req.app.helpers(block);
-        app.helpers({block:block});
-        next();
-    };
+        // utility method for adding a script reference to 'scripts'
+        script: function script(src) {
+            getBlock('scripts').addHtml(
+                '<script src="' + src + '"></' + 'script>'
+            );
+        },
+        
+        scripts: getBlock('scripts'),
+        
+        // utility method for adding a stylesheet reference to 'stylesheets'
+        stylesheet: function stylesheet(href, media) {
+            getBlock('stylesheets').addHtml(
+                '<link rel="stylesheet" href="' + href +
+                    (media ? ('" media="' + media) : '') + '" />'
+            );
+        },
+        
+        stylesheets: getBlock('stylesheets'),
+        
+    });
+    
+    next();
 };
