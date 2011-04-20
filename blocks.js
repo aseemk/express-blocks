@@ -4,20 +4,35 @@
 
 function Block(name) {
     this.name = name;
-    this.htmls = [];
+    this.views = [];    // list of views in order rendered
+    this.htmls = {};    // map from view to list of htmls
 }
 
-Block.prototype.addHtml = function (html) {
-    this.htmls.push(html);
+Block.prototype.addHtml = function (view, html) {
+    // if we haven't seen this view before, add it:
+    if (!this.htmls[view]) {
+        this.views.push(view);
+        this.htmls[view] = [];
+    }
+    
+    // then add this html for this view:
+    this.htmls[view].push(html);
 };
 
 Block.prototype.toHtml = function () {
-    // important: output HTML in reverse order; child pages/layouts are
-    // executed first, but parent pages/layouts may have dependencies.
-    this.htmls.reverse();
-    var html = this.htmls.join('');
-    this.htmls.reverse();
-    return html;
+    var html = [];
+    var htmls = this.htmls;
+    
+    // important: we want to output HTML in reverse order of views, since
+    // child views are rendered before parent views, but *within* a view,
+    // we want to output HTML in the order given.
+    this.views.reverse();
+    this.views.forEach(function (view) {
+        html.push(htmls[view].join(''));
+    });
+    this.views.reverse();
+    
+    return html.join('');
 };
 
 // important: so that the block can be output in the view directly w/out
@@ -38,6 +53,11 @@ module.exports = function(req, res, next) {
         return blocks[name] = blocks[name] || new Block(name);
     }
     
+    // derive the current view that's calling this helper
+    function getView(context) {
+        return context.filename;
+    }
+    
     req.app.helpers({
         
         // block(name, html) adds the given HTML to the named block;
@@ -45,7 +65,7 @@ module.exports = function(req, res, next) {
         block: function block(name, html) {
             var block = getBlock(name);
             if (html) {
-                block.addHtml(html);
+                block.addHtml(getView(this), html);
             } else {
                 return block.toHtml();
             }
@@ -55,7 +75,7 @@ module.exports = function(req, res, next) {
         
         // utility method for adding a script reference to 'scripts'
         script: function script(src) {
-            getBlock('scripts').addHtml(
+            getBlock('scripts').addHtml(getView(this),
                 '<script src="' + src + '"></' + 'script>'
             );
         },
@@ -64,7 +84,7 @@ module.exports = function(req, res, next) {
         
         // utility method for adding a stylesheet reference to 'stylesheets'
         stylesheet: function stylesheet(href, media) {
-            getBlock('stylesheets').addHtml(
+            getBlock('stylesheets').addHtml(getView(this),
                 '<link rel="stylesheet" href="' + href +
                     (media ? ('" media="' + media) : '') + '" />'
             );

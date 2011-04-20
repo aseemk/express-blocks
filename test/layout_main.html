@@ -3,18 +3,19 @@
 
 <% layout('layout_site') %>
 <% stylesheet('layout.css') %>
-<% script('layout.js') %>
 
-<h1>Main Layout</h1>
+<h2>Main Layout</h2>
 <p>
     This is the main page layout. 
     It is wrapped by the <t>layout_site</t> layout.
     It adds the following blocks to the layout:
 </p>
-<ul><li>A layout.css stylesheet in the document head</li>
-    <li>A layout.js script at the document foot</li>
+<ul><li>A layout.css stylesheet</li>
+    <li>A layout.js script</li>
+    <li>A "hello" paragraph</li>
 </ul>
 
-<% block('foobar', '<p>Hello from layout <em>main</em>!</p>') %>
-
 <%- body %>
+
+<% block('foobar', '<p>Hello from layout <em>main</em>!</p>') %>
+<% script('layout.js') %>

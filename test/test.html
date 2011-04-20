@@ -2,17 +2,23 @@
 <!-- use new layout() helper to get nested layouts -->
 
 <% layout('layout_main') %>
-<% stylesheet('page.css') %>
-<% script('page.js') %>
 
-<h2>Index Page</h2>
+<% stylesheet('page1.css') %>
+<% stylesheet('page2.css') %>
+
+<h3>Index Page</h3>
 <p>
     This is the main page content. 
     It is wrapped by the <t>layout_main</t> layout.
     It adds the following blocks to the layout:
 </p>
-<ul><li>A page.css stylesheet in the document head</li>
-    <li>A page.js script at the document foot</li>
+<ul><li>Two page.css stylesheets</li>
+    <li>Two page.js scripts</li>
+    <li>Two "hello" lines.</li>
 </ul>
 
-<% block('foobar', '<p>Hello from page <em>test</em>!</p>') %>
+<% block('foobar', '<p>Hello once from page <em>test</em>!<br/>') %>
+<% block('foobar', 'Hello again from page <em>test</em>!</p>') %>
+
+<% script('page1.js') %>
+<% script('page2.js') %>

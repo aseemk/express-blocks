@@ -57,9 +57,14 @@ Run the included Express test app:
 
     node test/app.js
 
-Then open your browser to http://localhost:8080/, view source, and you should
-see two stylesheet references and two script references. The content of the
-page should also show two "Hello from [layout/page] [main/test]!" paragraphs.
+Then open your browser to http://localhost:8080/ -- you should see:
+
+* A page with three sections.
+* Three "Hello from ..." lines in the top section.
+
+And if you view source on the page, you should see three script references and
+three stylesheet references. Most importantly, both sets should be in order of
+'layout', 'page1' and 'page2'.
 
 License
 -------
