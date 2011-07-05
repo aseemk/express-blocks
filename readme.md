@@ -50,12 +50,12 @@ Which are exposed to (top-level) layouts as blocks named `scripts` and
 
 As Borat would say, niiice!
 
-Testing
+Example
 -------
 
-Run the included Express test app:
+Run the included Express example to see this in action:
 
-    node test/app.js
+    node example/app.js
 
 Then open your browser to http://localhost:8080/ -- you should see:
 
