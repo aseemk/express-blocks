@@ -1,19 +1,19 @@
-<% stylesheet('page1.css') %>
-<% stylesheet('page2.css') %>
+<% stylesheet('page.css') %>
 
-<h3>Index Page</h3>
+<% block('message', 'This paragraph is specified by the page. You can even\
+    use <em>arbitrary</em> <strong>HTML</strong>!') %>
+
+<h2>Page Content:</h2>
+
 <p>
-    This is the main page content. 
-    It is wrapped by the <t>layout_main</t> layout.
-    It adds the following blocks to the layout:
+    This content is regular page-specific content. However, this page "filled
+    in" that paragraph above.
 </p>
-<ul><li>Two page.css stylesheets</li>
-    <li>Two page.js scripts</li>
-    <li>Two "hello" lines.</li>
-</ul>
 
-<% block('foobar', '<p>Hello once from page <em>test</em>!<br/>') %>
-<% block('foobar', 'Hello again from page <em>test</em>!</p>') %>
+<p>
+    In addition, this page includes two resources: <strong>page.css</strong>
+    and <strong>page.js</strong>. View source; they should follow site-wide
+    resources.
+</p>
 
-<% script('page1.js') %>
-<% script('page2.js') %>
+<% script('page.js') %>
