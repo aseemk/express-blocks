@@ -53,3 +53,32 @@ exports["test script ordering"] = function () {
         });
     });
 };
+
+exports["test stylesheet ordering"] = function () {
+    testRoot(function (res) {
+        // between views, parent styles should come before child styles,
+        // but within a view, styles should be in the original order.
+        jsdom.env(res.body, function (err, window) {
+            if (err) {
+                assert.fail('Unexpected: could not parse test site DOM');
+            }
+
+            styles = window.document.getElementsByTagName('link');
+
+            // convert to node's ES5 array and map <link> tags to hrefs:
+            styles = Array.prototype.slice.call(styles).map(function (style) {
+                return style.href;
+            })
+
+            // the hrefs should match this order exactly:
+            assert.deepEqual(styles, [
+                'master1.css',
+                'master2.css',
+                'parent1.css',
+                'parent2.css',
+                'child1.css',
+                'child2.css',
+            ]);
+        });
+    });
+};
