@@ -50,21 +50,14 @@ Which are exposed to (top-level) layouts as blocks named `scripts` and
 
 As Borat would say, niiice!
 
-Testing
+Example
 -------
 
-Run the included Express test app:
+Run the included Express example:
 
-    node test/app.js
+    node example/app.js
 
-Then open your browser to http://localhost:8080/ -- you should see:
-
-* A page with three sections.
-* Three "Hello from ..." lines in the top section.
-
-And if you view source on the page, you should see three script references and
-three stylesheet references. Most importantly, both sets should be in order of
-'layout', 'page1' and 'page2'.
+Then open your browser to http://localhost:8080/ to see it in action.
 
 License
 -------
