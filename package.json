@@ -18,7 +18,8 @@
   "devDependencies": {
     "express": "2.2.x",
     "ejs": "0.3.x",
-    "expresso": "0.7.x"
+    "expresso": "0.7.x",
+    "jsdom": "0.2.x"
   },
   "scripts": {
     "test": "expresso test/test.js"
