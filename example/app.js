@@ -11,7 +11,7 @@ app.set('view engine', 'html');
 app.register('.html', require('ejs'));
 
 app.get('/', function (req, res) {
-    res.render('test', { foo: 'bar' });
+    res.render('page');
 });
 
 app.listen(8080);
