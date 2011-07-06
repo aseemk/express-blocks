@@ -59,6 +59,15 @@ Run the included Express example:
 
 Then open your browser to http://localhost:8080/ to see it in action.
 
+Testing
+-------
+
+You can verify that everything works as expected via:
+
+    npm test
+
+If you want to submit a pull request, be sure to add a test case, too!
+
 License
 -------
 
