@@ -58,7 +58,7 @@ module.exports = function(req, res, next) {
         return context.filename;
     }
     
-    req.app.helpers({
+    res.locals({
         
         // block(name, html) adds the given HTML to the named block;
         // block(name) returns the combined HTML for the named block
