@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+
+    <meta charset=utf-8>
+    <title>Express-Blocks Test Site</title>
+
+    <% stylesheet('master1.css') %>
+    <% stylesheet('master2.css') %>
+    <%- stylesheets %>
+
+</head>
+<body>
+
+    <h1>Master</h1>
+
+    <%- body %>
+
+    <% script('master1.js') %>
+    <% script('master2.js') %>
+    <%- scripts %>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<% stylesheet('page.css') %>
+
+<% block('message', 'This paragraph is specified by the page. You can even\
+    use <em>arbitrary</em> <strong>HTML</strong>!') %>
+
+<h2>Page Content:</h2>
+
+<p>
+    This content is regular page-specific content. However, this page "filled
+    in" that paragraph above.
+</p>
+
+<p>
+    In addition, this page includes two resources: <strong>page.css</strong>
+    and <strong>page.js</strong>. View source; they should follow site-wide
+    resources.
+</p>
+
+<% script('page.js') %>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+
+    <meta charset=utf-8>
+    <title>Express-Blocks Example</title>
+
+    <% stylesheet('site.css') %>
+    <%- stylesheets %>
+
+</head>
+<body>
+
+    <h1>Express-Blocks Example</h1>
+
+    <h2>Site Content:</h2>
+
+    <p>
+        This content is specified by a site-wide layout. However, it can have
+        placeholders that individual pages can "fill in". The next paragraph
+        is an example:
+    </p>
+
+    <blockquote style="border-left: 4px solid silver; margin-left: 0; padding-left: 0.5em;">
+        <%- blocks.message %>
+    </blockquote>
+
+    <p>
+        In addition, this site-wide layout includes two resources:
+        <strong>site.css</strong> and <strong>site.js</strong>. View source;
+        they should preceed page-specific resources.
+    </p>
+
+    <%- body %>
+
+    <% script('site.js') %>
+    <%- scripts %>
+
+</body>
+</html>
